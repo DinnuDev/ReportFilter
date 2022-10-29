@@ -6,15 +6,7 @@ import "./Report.css";
 const ReportFilter = () => {
   return (
     <div className="container">
-      <div className="head">
-        <label>Report Filter</label>
-        <a href="#123" className="close"></a>
-      </div>
-      <div className="mid-section">
-        <label>Select User</label>
-        <a href="">Edit List</a>
-      </div>
-      <div className="content">
+      {/* <div className="content">
         <section className="ae-list">
           <div>
             <label>Agency Executive List</label>
@@ -25,8 +17,7 @@ const ReportFilter = () => {
             <label>Branch Manager List</label>
           </div>
         </section>
-      </div>
-      <footer className="footer">footer Content</footer>
+      </div> */}
     </div>
   );
 };
