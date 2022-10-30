@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import ReportFilter from "./ReportFilter/ReportFilter";
+import React, { useState, lazy, Suspense } from "react";
 import "antd/dist/antd.css";
-import { Button, Modal } from "antd";
+import { Button, Modal, Spin } from "antd";
+
+const ReportFilter = lazy(() => import("./ReportFilter/ReportFilter"));
 
 const App = () => {
+  let ModalWidth = '80%'
+  let ModalHeight = '300px'
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -18,16 +21,19 @@ const App = () => {
     <div className="App">
       <>
         <Button onClick={showModal}>{isModalOpen ? "Close" : "Open"}</Button>
-        {/* {modalState ? <ReportFilter /> : ""} */}
-
-        <Modal
-          title="Report Filter"
-          open={isModalOpen}
-          onOk={handleOK}
-          onCancel={handleCancel}
-        >
-          <ReportFilter />
-        </Modal>
+        <Suspense fallback={<Spin />}>
+          <Modal
+            title="Report Filter"
+            open={isModalOpen}
+            onOk={handleOK}
+            onCancel={handleCancel}
+            centered
+            width={ModalWidth}
+            style={{height:{ModalHeight}}}
+          >
+            <ReportFilter />
+          </Modal>
+        </Suspense>
       </>
     </div>
   );
