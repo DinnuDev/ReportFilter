@@ -7,32 +7,14 @@ const ReportFilter = lazy(() => import("./ReportFilter/ReportFilter"));
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
-    setIsModalOpen(true);
+    setIsModalOpen(!isModalOpen);
   };
-  const handleOK = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  let ModalWidth = '80%'
-  let ModalHeight = '300px'
   return (
     <div className="App">
       <>
         <Button onClick={showModal}>{isModalOpen ? "Close" : "Open"}</Button>
         <Suspense fallback={<Spin />}>
-          <Modal
-            title="Report Filter"
-            open={isModalOpen}
-            onOk={handleOK}
-            onCancel={handleCancel}
-            centered
-            width={ModalWidth}
-            style={{height:{ModalHeight}}}
-          >
-            <ReportFilter />
-          </Modal>
+            <ReportFilter modelOpen={isModalOpen}/>
         </Suspense>
       </>
     </div>
