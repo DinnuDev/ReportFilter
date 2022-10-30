@@ -1,28 +1,29 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/anchor-has-content */
-import React, { useState, lazy, Suspense, useEffect } from "react";
+import React, { useState, lazy, Suspense, useEffect, useContext } from "react";
 import "./Report.css";
 import { Card, Row, Col, Button, Spin, Modal } from "antd";
 import { mockData } from "./Mock-Data";
 import _ from "lodash";
+import {AppContext} from '../Store/AppContext'
 
-const EditList = lazy(() => import("./EditList"));
+// const EditList = lazy(() => import("./EditList"));
 
 const ReportFilter = (props) => {
   const [editlist, setEditList] = useState(false);
   const [filterDetails, setFilterDetails] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log("Props in Report Filter:", props);
+  // console.log("Props in Report Filter:", props);
+  const {appState,appDispatch} = useContext(AppContext)
+  console.log('App state Value is:',appState)
   useEffect(() => {
     setIsModalOpen(props.modelOpen);
   }, [props]);
   const handleOK = () => {
     setIsModalOpen(false);
-    setEditList(!editlist);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
-    setEditList(!editlist);
   };
   let ModalWidth = "80%";
   let ModalHeight = "300px";
