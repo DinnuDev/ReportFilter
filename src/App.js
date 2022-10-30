@@ -5,8 +5,6 @@ import { Button, Modal, Spin } from "antd";
 const ReportFilter = lazy(() => import("./ReportFilter/ReportFilter"));
 
 const App = () => {
-  let ModalWidth = '80%'
-  let ModalHeight = '300px'
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -17,6 +15,8 @@ const App = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  let ModalWidth = '80%'
+  let ModalHeight = '300px'
   return (
     <div className="App">
       <>
