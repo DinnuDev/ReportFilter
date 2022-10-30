@@ -3,8 +3,13 @@
 import React from "react";
 import "./Report.css";
 import { Card, Row, Col, Button } from "antd";
+import {mockData} from "./Mock-Data";
 
 const ReportFilter = () => {
+  const getData = async () =>{
+    const response = await mockData;
+    console.log(response)
+  }
   return (
     <div className="container site-card-wrapper">
       <Row gutter={16}>
@@ -12,7 +17,9 @@ const ReportFilter = () => {
           <h4>Select User</h4>
         </Col>
         <Col span={8}>
-          <Button type="link">Edit List</Button>
+          <Button type="link" onClick={getData}>
+            Edit List
+          </Button>
         </Col>
       </Row>
       <Row gutter={16}>
