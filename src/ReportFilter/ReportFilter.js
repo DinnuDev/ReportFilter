@@ -10,7 +10,6 @@ import { AppContext } from "../Store/AppContext";
 const EditList = lazy(() => import("./EditList"));
 
 const ReportFilter = (props) => {
-  const [editlist, setEditList] = useState(false);
   const [filterDetails, setFilterDetails] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { appState, appDispatch } = useContext(AppContext);
@@ -31,11 +30,8 @@ const ReportFilter = (props) => {
     const {
       result: { region },
     } = response;
-    // console.log(region);
-    setEditList(!editlist);
     setFilterDetails(!filterDetails);
     appDispatch({ type: "LIST_DATA", payload: region });
-    // console.log("App state Value is:", appState);
   };
   return (
     <div className="container site-card-wrapper">

@@ -5,6 +5,7 @@ const initialState = {
   editlist: false,
   filterDetails: true,
   isModalOpen: false,
+  handleCancel: false,
   listData: [],
 };
 
@@ -30,6 +31,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case "HANDLE_CANCEL":
+      state.handleCancel = action.payload
+      return{
+        ...state
+      }
     default:
       return {
         ...state,

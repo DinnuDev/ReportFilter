@@ -1,5 +1,5 @@
 import React, { useState, lazy, Suspense } from "react";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import { Button, Spin } from "antd";
 
 const ReportFilter = lazy(() => import("./ReportFilter/ReportFilter"));
