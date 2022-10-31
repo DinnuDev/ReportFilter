@@ -2,10 +2,11 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useState, lazy, Suspense, useEffect, useContext } from "react";
 import "./Report.css";
-import { Card, Row, Col, Button, Spin, Modal } from "antd";
+import { Card, Row, Col, Button, Spin, Modal, List, Checkbox } from "antd";
 import { mockData } from "./Mock-Data";
 import _ from "lodash";
 import { AppContext } from "../Store/AppContext";
+const CheckboxGroup = Checkbox.Group;
 
 const EditList = lazy(() => import("./EditList"));
 
@@ -13,6 +14,8 @@ const ReportFilter = (props) => {
   const [filterDetails, setFilterDetails] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { appState, appDispatch } = useContext(AppContext);
+  const [aeListData, setAeListData] = useState([]);
+  const [indeterminate, setIndeterminate] = useState(true);
   useEffect(() => {
     setIsModalOpen(props.modelOpen);
   }, [props]);
@@ -30,8 +33,14 @@ const ReportFilter = (props) => {
     const {
       result: { region },
     } = response;
-    setFilterDetails(!filterDetails);
     appDispatch({ type: "LIST_DATA", payload: region });
+    let tmpArr = [];
+    for (let vals of region) {
+      tmpArr.push(vals.name);
+    }
+    setAeListData(tmpArr);
+    console.log("Inside Get Data:", aeListData);
+    // console.log("List Data is:", appState.listData);
   };
   return (
     <div className="container site-card-wrapper">
@@ -58,7 +67,24 @@ const ReportFilter = (props) => {
           <Row gutter={16}>
             <>
               <Col span={8}>
-                <Card title="Agency Executive List" bordered={true}></Card>
+                <Card title="Agency Executive List" bordered={true}>
+                  <Suspense fallback={<Spin />}>
+                    <Checkbox indeterminate={indeterminate}>
+                      Select All
+                    </Checkbox>
+                    <List
+                      size="large"
+                      dataSource={aeListData}
+                      renderItem={(item) => (
+                        <>
+                          <List.Item>
+                            <CheckboxGroup options={[item]} />
+                          </List.Item>
+                        </>
+                      )}
+                    />
+                  </Suspense>
+                </Card>
               </Col>
               <Col span={16}>
                 <Card title="Branch Manager List" bordered={true}></Card>
