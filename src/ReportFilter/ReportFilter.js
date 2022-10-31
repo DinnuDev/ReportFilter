@@ -69,12 +69,16 @@ const ReportFilter = (props) => {
               <Col span={8}>
                 <Card title="Agency Executive List" bordered={true}>
                   <Suspense fallback={<Spin />}>
-                    <Checkbox indeterminate={indeterminate}>
-                      Select All
-                    </Checkbox>
                     <List
                       size="large"
                       dataSource={aeListData}
+                      itemLayout='vertical'
+                      rowKey={Math.random()}
+                      header={
+                        <Checkbox indeterminate={indeterminate}>
+                          Select All
+                        </Checkbox>
+                      }
                       renderItem={(item) => (
                         <>
                           <List.Item>
