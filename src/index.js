@@ -7,11 +7,9 @@ import StateWrapper from "./Store/Store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
     <StateWrapper>
       <App />
     </StateWrapper>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

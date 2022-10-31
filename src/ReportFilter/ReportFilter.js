@@ -5,17 +5,15 @@ import "./Report.css";
 import { Card, Row, Col, Button, Spin, Modal } from "antd";
 import { mockData } from "./Mock-Data";
 import _ from "lodash";
-import {AppContext} from '../Store/AppContext'
+import { AppContext } from "../Store/AppContext";
 
-// const EditList = lazy(() => import("./EditList"));
+const EditList = lazy(() => import("./EditList"));
 
 const ReportFilter = (props) => {
   const [editlist, setEditList] = useState(false);
   const [filterDetails, setFilterDetails] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // console.log("Props in Report Filter:", props);
-  const {appState,appDispatch} = useContext(AppContext)
-  console.log('App state Value is:',appState)
+  const { appState, appDispatch } = useContext(AppContext);
   useEffect(() => {
     setIsModalOpen(props.modelOpen);
   }, [props]);
@@ -29,13 +27,15 @@ const ReportFilter = (props) => {
   let ModalHeight = "300px";
 
   const getData = async () => {
-    setEditList(!editlist);
     const response = _.cloneDeep(mockData);
     const {
       result: { region },
     } = response;
-    console.log(region);
+    // console.log(region);
+    setEditList(!editlist);
     setFilterDetails(!filterDetails);
+    appDispatch({ type: "LIST_DATA", payload: region });
+    // console.log("App state Value is:", appState);
   };
   return (
     <div className="container site-card-wrapper">
@@ -73,16 +73,9 @@ const ReportFilter = (props) => {
       ) : (
         ""
       )}
-
-      {/* {editlist ? (
-        <>
-          <Suspense fallback={<Spin />}>
-            <EditList />
-          </Suspense>
-        </>
-      ) : (
-        ""
-      )} */}
+      <Suspense fallback={<Spin />}>
+        <EditList />
+      </Suspense>
     </div>
   );
 };
