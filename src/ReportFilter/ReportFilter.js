@@ -2,11 +2,22 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useState, lazy, Suspense, useEffect, useContext } from "react";
 import "./Report.css";
-import { Card, Row, Col, Button, Spin, Modal, List, Checkbox } from "antd";
+import {
+  Card,
+  Row,
+  Col,
+  Button,
+  Spin,
+  Modal,
+  List,
+  Checkbox,
+  Collapse,
+} from "antd";
 import { mockData } from "./Mock-Data";
 import _ from "lodash";
 import { AppContext } from "../Store/AppContext";
 const CheckboxGroup = Checkbox.Group;
+const { Panel } = Collapse;
 
 const EditList = lazy(() => import("./EditList"));
 
@@ -16,6 +27,20 @@ const ReportFilter = (props) => {
   const { appState, appDispatch } = useContext(AppContext);
   const [aeListData, setAeListData] = useState([]);
   const [indeterminate, setIndeterminate] = useState(true);
+  const [checkedList, setCheckedList] = useState([]);
+  const [checkAll, setCheckAll] = useState(false);
+
+  const onChkBoxChange = (list) => {
+    setCheckedList(list);
+    setIndeterminate(!!list.length && list.length < aeListData.length);
+    setCheckAll(list.length === aeListData.length);
+    console.log("Check Box Change:", [...list, checkedList]);
+  };
+  const onCheckAllChange = (e) => {
+    setCheckedList(e.target.checked ? aeListData : []);
+    setIndeterminate(false);
+    setCheckAll(e.target.checked);
+  };
   useEffect(() => {
     setIsModalOpen(props.modelOpen);
   }, [props]);
@@ -39,8 +64,6 @@ const ReportFilter = (props) => {
       tmpArr.push(vals.name);
     }
     setAeListData(tmpArr);
-    console.log("Inside Get Data:", aeListData);
-    // console.log("List Data is:", appState.listData);
   };
   return (
     <div className="container site-card-wrapper">
@@ -58,8 +81,8 @@ const ReportFilter = (props) => {
             <Col span={8}>
               <h4>Select User</h4>
             </Col>
-            <Col span={8}>
-              <Button type="link" onClick={getData}>
+            <Col span={16}  align="right">
+              <Button type="link" onClick={getData} >
                 Edit List
               </Button>
             </Col>
@@ -72,18 +95,35 @@ const ReportFilter = (props) => {
                     <List
                       size="large"
                       dataSource={aeListData}
-                      itemLayout='vertical'
+                      itemLayout="vertical"
                       rowKey={Math.random()}
                       header={
-                        <Checkbox indeterminate={indeterminate}>
+                        <Checkbox
+                          indeterminate={indeterminate}
+                          onChange={onCheckAllChange}
+                          checked={checkAll}
+                        >
                           Select All
                         </Checkbox>
                       }
                       renderItem={(item) => (
                         <>
-                          <List.Item>
-                            <CheckboxGroup options={[item]} />
-                          </List.Item>
+                          <Collapse defaultActiveKey={["1"]}
+                          expandIconPosition="right"
+                          >
+                            <Panel
+                              header={
+                                <List.Item>
+                                  <CheckboxGroup
+                                    options={[item]}
+                                    onChange={onChkBoxChange}
+                                    value={checkedList}
+                                  />
+                                </List.Item>
+                              }
+                              key={Math.random()}
+                            ></Panel>
+                          </Collapse>
                         </>
                       )}
                     />

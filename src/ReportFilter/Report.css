@@ -22,3 +22,17 @@
     border: 1px solid black;
     border-radius: 5px;
 }
+.ant-modal-header{
+    background: #1a77ce;
+}
+.ant-modal-title {
+    text-align: center;
+    color: white;
+}
+.ant-modal-footer{
+    text-align: left;
+
+}
+.ant-modal-footer .ant-btn+.ant-btn:not(.ant-dropdown-trigger){
+    margin-left: 1000px;
+}
