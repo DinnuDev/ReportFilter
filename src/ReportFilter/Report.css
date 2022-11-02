@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border-radius: 5px;
+}
+.content{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 8px;
+    height: calc(75%);
+}
+.ae-list{
+    display: inline-block;
+    width: calc(32%);
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.bm-list{
+    display: inline-block;
+    width: calc(65.5%);
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.ant-modal-header{
+    background: #1a77ce;
+}
+.ant-modal-title {
+    text-align: center;
+    color: white;
+}
+.ant-modal-footer{
+    text-align: left;
+
+}
+.ant-modal-footer .ant-btn+.ant-btn:not(.ant-dropdown-trigger){
+    margin-left: 1000px;
+}
